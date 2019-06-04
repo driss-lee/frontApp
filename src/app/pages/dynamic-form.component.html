@@ -1,0 +1,60 @@
+    <form novalidate  (ngSubmit)="onSubmit(form.value)" [formGroup]="form">
+      <div *ngFor="let prop of objectProps">
+       
+
+
+        <div [ngSwitch]="prop.type">
+        
+            <div *ngSwitchCase="'input'" class="form-group row">
+            <input nbInput fullWidth  [formControlName]="prop.key" 
+            [placeholder]="prop.label" [id]="prop.key" [type]="prop.inputType">
+            </div>
+
+            <div *ngSwitchCase="'inputD'" class="form-group row">
+            <input nbInput fullWidth  [formControlName]="prop.key" 
+            [placeholder]="prop.label" [id]="prop.key" [type]="prop.inputType" [attr.disabled]="isChecked">
+            </div>
+      
+
+          <div *ngSwitchCase="'button'" class="form-group row" >
+            <button (click)="onClick()" type="submit" nbButton>{{prop.label}}</button>
+          </div>
+
+          <div *ngSwitchCase="'buttonR'" class="form-group row" >
+            <button (click)="form.reset()" type="reset" nbButton>{{prop.label}}</button>
+          </div>
+
+
+            <div *ngSwitchCase="'date'" class="form-group row">
+          <input nbInput [nbDatepicker]="formpicker" [formControlName]="prop.key" [placeholder]="prop.label">
+          <nb-datepicker #formpicker></nb-datepicker>     
+            </div>
+
+          <div  *ngSwitchCase="'radio'" class="form-group row">
+            <label  class="custom-control custom-radio">{{prop.label}}:</label>
+              <nb-radio-group  [formControlName]="prop.key" class="form-check form-check-inline" [name]="prop.key">
+                <nb-radio *ngFor="let item of prop.options">{{item}}</nb-radio>
+              </nb-radio-group>
+          </div>
+          
+       
+          <div *ngSwitchCase="'select'"  class="form-group row">
+           <label>{{prop.label}}</label>
+            <select [formControlName]="prop.key" class="form-control" >
+              <option *ngFor="let option of prop.options" [value]="option">
+                {{option}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="error" *ngIf="form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched)">
+            <div *ngIf="form.get(prop.key).errors.required">
+              {{ prop.label }} is required.
+            </div>
+          </div>
+      </div>
+   
+    </form>
+   
+    <hr />
