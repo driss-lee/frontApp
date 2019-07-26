@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-md-5">
+		<nb-card class="inline-form-card">
+			<nb-card-header>Upload Form</nb-card-header>
+			<nb-card-body>
+				<nb-alert  *ngIf="showSucc" status="info">{{messSucc}}</nb-alert>
+                <nb-alert  *ngIf="showErr" status="danger">{{messErr}}</nb-alert>
+				<form class="form-inline">
+					<input nbInput type="file"  (change)="selectFile($event)">
+					<button class="btn btn-primary" [disabled]="!selectedFiles" (click)="upload()" >Upload</button>
+
+				</form>
+			</nb-card-body>
+		</nb-card>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-5">
+		<nb-card class="inline-form-card">
+			<nb-card-header>Delete Form</nb-card-header>
+			<nb-card-body>
+				<nb-alert  *ngIf="showSuccc" status="info">{{messSuccc}}</nb-alert>
+                <nb-alert  *ngIf="showErrr" status="danger">{{messErrr}}</nb-alert>
+				<form class="form-inline">
+					<input nbInput type="text" [(ngModel)]="form" name="form"  placeholder="Form Name" class="form-control full-width">
+					<button class="btn btn-primary" [disabled]="!form" (click)="delete()" >Delete</button>
+
+				</form>
+			</nb-card-body>
+		</nb-card>
+	</div>
+</div>
+

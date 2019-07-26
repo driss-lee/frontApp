@@ -11,6 +11,7 @@ import { NbAuthService } from '../../services/auth.service';
 
 import { HttpClient } from '@angular/common/http';
 import { NB_THEME_OPTIONS } from '@nebular/theme';
+import{AuthService} from '../../../../../auth.service';
 
 @Component({
   selector: 'nb-login',
@@ -31,18 +32,18 @@ export class NbLoginComponent {
   submitted: boolean = false;
  
 
-  constructor(protected http:HttpClient,protected router: Router) {
+  constructor(protected http:HttpClient,protected router: Router, private authService: AuthService) {
 
     
   }
 
 
   login()  {
+    
 
     console.log("email"+this.user.email);
     console.log("pwd"+this.user.password);
-    return this.http.post<any>('http://localhost:8080/myapp/auth', 
-    { email: this.user.email, password: this.user.password }).subscribe( 
+    return this.authService.auth(this.user).subscribe( 
       (res) => {
       
       console.log("response"+JSON.stringify(res));

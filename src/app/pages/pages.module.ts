@@ -16,22 +16,17 @@ import {FormlyModule} from '@ngx-formly/core';
 import {FormlyMaterialModule} from '@ngx-formly/material';
 
 
-import { DynamicFormComponent } from './dynamic-form.component';
-import { DynamicComponent } from './dynamic.component';
-import {CreateLoanComponent} from './createLoan/createLoan.component';
+
 import {TransferComponent} from './transfer/transfer.component';
-import {ChangePinComponent} from './changePin/changePin.component';
-import {SearchCardComponent} from './searchCard/searchCard.component';
-import {GetCardOperationListComponent} from './cardOperationList/getCardOperationList.component';
-import {AddSupplementaryCardComponent} from './addSuppCard/addSupplementaryCard.component'
+import {GetCardDetailsComponent} from './getCardDetails/getCardDetails.component';
 import {CreateDebitCardComponent} from './createDebitCard/createDebitCard.component'
-import {ChangeCardProductComponent} from './changeCardProduct/changeCardProduct.component'
 import {GetAppDocumentsComponent} from './getAppDocuments/getAppDocuments.component'
-import {GetAuthorizationDetailsComponent} from './getAuthorizationDetails/getAuthorizationDetails.component'
-import {UpdateCardLimitsComponent} from './updateCardLimits/updateCardLimits.component'
+import {UpdateFormComponent} from './updateForm/updateForm.component'
 import {HomeComponent} from './home/home.component'
 
-import {TestComponent} from './test/test.component'
+import { RepeatTypeComponent } from './repeat-section.type';
+import { FormlyMatNativeSelectModule } from '@ngx-formly/material/native-select';
+
 
 
 
@@ -43,6 +38,7 @@ const PAGES_COMPONENTS = [
 @NgModule({
   imports: [
     PagesRoutingModule,
+    FormlyMatNativeSelectModule,
     ThemeModule,
     DashboardModule,
     ECommerceModule,
@@ -50,6 +46,11 @@ const PAGES_COMPONENTS = [
     FormsModule, 
     ReactiveFormsModule,
     MatButtonModule,
+    FormlyModule.forRoot({
+      types: [
+        { name: 'repeat', component: RepeatTypeComponent },
+      ],
+    }),
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' },
@@ -63,20 +64,12 @@ const PAGES_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
-    DynamicFormComponent,
-    CreateLoanComponent,
+    RepeatTypeComponent,
     TransferComponent,
-    ChangePinComponent,
-    SearchCardComponent,
-    GetCardOperationListComponent,
-    DynamicComponent,
-    AddSupplementaryCardComponent,
+    UpdateFormComponent,
+    GetCardDetailsComponent,
     CreateDebitCardComponent,
-    ChangeCardProductComponent,
     GetAppDocumentsComponent,
-    GetAuthorizationDetailsComponent,
-    UpdateCardLimitsComponent,
-    TestComponent,
     HomeComponent
   ],
   providers: [

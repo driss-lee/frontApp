@@ -1,32 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { FormsService } from "../../forms.service";
-import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { HttpHeaders } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
+import { HttpHeaders } from '@angular/common/http'
 
 
 
 @Component({
-  selector: 'app-getAppDocuments',
-  templateUrl: 'getAppDocuments.component.html',
-  styleUrls: ['./getAppDocuments.component.scss']
-
+  selector: 'app-getCardDetails',
+  templateUrl: 'getCardDetails.component.html',
+  styles: ['button {margin : 5px;}']
 })
-export class GetAppDocumentsComponent implements OnInit {
+export class GetCardDetailsComponent implements OnInit {
 
-  messSucc: string = 'GetApplicationDocuments API call was ended with sucess ';
+  formJson: any;
+  messSucc: string = 'TransferAccountToAccount API call was ended with sucess ';
   messErr: string;
   showSucc: boolean = false;
   showErr: boolean = false;
-  formJson: any;
-  formName: String = 'appDocuments';
-  appDocument: any[];
+  formName: String = 'cardDetails';
+  cardInfoo: any = {};
+  personInfoo: any = {};
+  fieldss: FormlyFieldConfig[];
   form = new FormGroup({});
   model = {};
-  fieldss: FormlyFieldConfig[];
+
 
   ngOnInit() {
+
     this.get_jsonn();
     this.get_json();
 
@@ -36,18 +38,18 @@ export class GetAppDocumentsComponent implements OnInit {
 
   }
 
+
+
+
   get_jsonn() {
     this.formsService.getForm(this.formName).subscribe((res) => {
       this.fieldss = res;
-      console.log(this.fieldss);
 
     })
   }
-
   get_json() {
     this.formsService.getUser().subscribe((res) => {
       this.formJson = res;
-      console.log(this.formJson);
     })
   }
 
@@ -68,17 +70,19 @@ export class GetAppDocumentsComponent implements OnInit {
     };
 
 
-    return this.http.post<any>('http://10.1.50.210:9177/PowerCardConnectApi/jaxrs/GetApplicationDocumentsWebService/V1/getApplicationDocuments_10', merged, httpOptions).subscribe((res) => {
+    return this.http.post<any>('http://10.1.50.210:9177/PowerCardConnectApi/jaxrs/GetCardDetailsWebService/V1/getCardDetails_10', merged, httpOptions).subscribe((res) => {
 
-      if (res.errorCode == '00000') {
-        // this.messSucc=this.messSucc + res.errorDesc
+      if (res.errorCode == '00000' || res.errorCode == null) {
+        // this.messSucc = this.messSucc + res.errorDesc
         this.showErr = false;
         this.showSucc = true;
         setTimeout(() => {
           this.showSucc = false;
         }, 4000);
-        this.appDocument = res.applicationDocument;
+        this.cardInfoo = res.card.cardInfo;
+        this.personInfoo = res.card.personInfo;
         // this.form.reset();
+        // console.log(this.cardInfoo);
       }
       else {
         this.messErr = res.errorDesc;

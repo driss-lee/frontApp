@@ -1,14 +1,29 @@
 <div class="row">
-        <div class="col-md-6">
+    <div class="col-md-6">
+
+        <<nb-card>
+            <nb-card-header>TransferAccountToAccount API</nb-card-header>
+            <nb-card-body>
               
-          <<nb-card>
-          <nb-card-header>TransferAccountToAccount API</nb-card-header>
-                <nb-card-body> 
-                  <div *ngIf="formJson">
-                        <dynamic-form [dataObject]="formJson"></dynamic-form>
-                   </div>
-               
-                </nb-card-body>
+                <nb-alert  *ngIf="showSucc" status="info">{{messSucc}}</nb-alert>
+                <nb-alert  *ngIf="showErr" status="danger">{{messErr}}</nb-alert>
+
+
+                <div *ngIf="fieldss">
+
+                    <form role="form" novalidate [formGroup]="form" (ngSubmit)="submit()">
+                        <formly-form [model]="model" [fields]="fieldss" [form]="form">
+
+                            <div id="container">
+                                <button type="submit" color="primary" mat-raised-button>Submit</button>
+                                <button type="reset" (click)="form.reset()" color="primary" mat-raised-button>Reset</button>
+                            </div>
+                        </formly-form>
+                    </form>
+                </div>
+            </nb-card-body>
             </nb-card>
-        </div>
-      </div>
+    </div>
+    <!-- <strong>Form Value</strong>
+    <pre>{{ form.value | json }}</pre> -->
+</div>

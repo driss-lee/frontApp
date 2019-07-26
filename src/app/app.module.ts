@@ -18,9 +18,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsService } from './forms.service';
+import { AuthService } from './auth.service';
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ],
   imports: [
     BrowserModule,
    
@@ -35,7 +37,7 @@ import { FormsService } from './forms.service';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/' }, AuthGuard, FormsService
+    { provide: APP_BASE_HREF, useValue: '/' }, AuthGuard, FormsService, AuthService
   ],
 })
 export class AppModule {

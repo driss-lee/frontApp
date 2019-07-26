@@ -11,6 +11,8 @@ import { getDeepFromObject } from '../../helpers';
 import { NbAuthService } from '../../services/auth.service';
 import { NbAuthResult } from '../../services/auth-result';
 import { HttpClient } from '@angular/common/http';
+import{AuthService} from '../../../../../auth.service';
+
 
 
 @Component({
@@ -35,7 +37,7 @@ export class NbRegisterComponent {
 
 
   constructor(protected service: NbAuthService,
-              @Inject(NB_AUTH_OPTIONS) protected options = {},private http:HttpClient,
+              @Inject(NB_AUTH_OPTIONS) protected options = {},private http:HttpClient,private authService :AuthService,
               protected cd: ChangeDetectorRef,
               protected router: Router) {
 
@@ -47,9 +49,7 @@ export class NbRegisterComponent {
 
  
   register() {
-
-    return this.http.post<any>('http://localhost:8080/myapp/addUser', 
-   this.user).subscribe( 
+    return this.authService.register(this.user).subscribe( 
       (res) => {
       
     console.log("response"+res);
